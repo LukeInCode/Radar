@@ -1,0 +1,94 @@
+package Findings;
+import Report.ReportController;
+import processing.core.PApplet;
+import controlP5.*;
+
+import java.util.Arrays;
+
+/**
+ * View class from the MVC program pattern
+ */
+public class FindingsView {
+
+    private PApplet parent;
+    private ControlP5 cp5;
+
+    private Button btns[];
+
+    private boolean screens[];
+
+    /**
+     * Constructor
+     * @param p - PApplet obj for the processing implementation
+     * @throws NullPointerException - if the obj is null
+     */
+    public FindingsView (PApplet p) throws NullPointerException{
+        if(p != null) {
+            parent = p;
+            btns = new Button[2];
+            screens = new boolean[2];
+            cp5 = new ControlP5(parent);
+
+            btns[0] = cp5.addButton("list").setValue(100).setSize(100,100).setPosition(parent.width/2-50,parent.height/2).setLabel("view").hide();
+            btns[1] = cp5.addButton("exit").setValue(100).setSize(100,100).setPosition(parent.width/2-50,parent.height/2+200).setLabel("exit").hide();
+            Arrays.fill(screens,false);
+        }
+        else {
+            throw new NullPointerException("Obj null");
+        }
+    }
+
+    /**
+     * Method for displaying start menu
+     */
+    public void showStart () {
+        parent.background(144, 224, 239);
+        parent.textMode(3);
+        parent.fill(0);
+        parent.textSize(40);
+        parent.text("Welcome to the radar!",parent.width/2-parent.width/4,parent.height/3);
+        showAllButtons();
+    }
+
+    /**
+     * Method for displaying information
+     * @param m - FindingsModel obj to display
+     */
+    public void loop(FindingsModel m) {
+        if(screens[0]) {
+            screens[1] = false;
+            showStart();
+        }else if(screens[1]){
+            parent.background(144, 224, 239);
+            parent.textSize(40);
+            parent.fill(0);
+            parent.text("Records",parent.width/2-parent.width/12,parent.height/6);
+            if(m.getReports().isEmpty()) parent.text("No data to found" , parent.width/2-parent.width/6,parent.height/3);
+            else {
+                for(ReportController report : m.getReports()) {
+                    report.displayReports();
+                }
+            }
+            hideAllButtons();
+            screens[0] = false;
+        }
+    }
+
+    public void showAllButtons() {
+        for(Button b : btns) b.show();
+    }
+
+    public void hideAllButtons() {
+        for(Button b : btns) b.hide();
+    }
+
+    public Button getButton(int index) throws IndexOutOfBoundsException{
+        if(index >= 0 && index < btns.length) return btns[index];
+        else throw new IndexOutOfBoundsException("Index out of the button array bound");
+    }
+
+    public void setScreen(int index, boolean value) throws IndexOutOfBoundsException{
+        if(index >= 0 && index < btns.length) screens[index] = value;
+        else throw new IndexOutOfBoundsException("Index out of the screen array bound");
+    }
+}
