@@ -15,6 +15,8 @@ public class FindingsView {
 
     private Button btns[];
 
+    private Button home;
+
     private boolean screens[];
 
     /**
@@ -31,6 +33,7 @@ public class FindingsView {
 
             btns[0] = cp5.addButton("list").setValue(100).setSize(100,100).setPosition(parent.width/2-50,parent.height/2).setLabel("view").hide();
             btns[1] = cp5.addButton("exit").setValue(100).setSize(100,100).setPosition(parent.width/2-50,parent.height/2+200).setLabel("exit").hide();
+            home = cp5.addButton("home").setValue(100).setSize(100,100).setPosition(parent.width/2+parent.width/6,parent.height/3-parent.width/4).setLabel("Back").hide();
             Arrays.fill(screens,false);
         }
         else {
@@ -60,6 +63,7 @@ public class FindingsView {
             showStart();
         }else if(screens[1]){
             parent.background(144, 224, 239);
+            home.show();
             parent.textSize(40);
             parent.fill(0);
             parent.text("Records",parent.width/2-parent.width/12,parent.height/6);
@@ -91,4 +95,11 @@ public class FindingsView {
         if(index >= 0 && index < btns.length) screens[index] = value;
         else throw new IndexOutOfBoundsException("Index out of the screen array bound");
     }
+
+    public boolean getScreen(int index) throws IndexOutOfBoundsException{
+        if(index >= 0 && index < screens.length) return screens[index];
+        else throw new IndexOutOfBoundsException("Index out of the screen array bound");
+    }
+
+    public Button getHome() {return home;}
 }

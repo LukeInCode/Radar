@@ -15,4 +15,12 @@ public class ReportController {
     public void displayReports() {
         v.view(m);
     }
+
+    public ReportModel getM() {
+        return m;
+    }
+
+    public ReportView getV() {
+        return v;
+    }
 }
