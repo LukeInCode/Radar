@@ -1,8 +1,6 @@
 package Report;
 
-import java.time.LocalDate;
-
-public class ReportController implements Comparable{
+public class ReportController {
     private ReportModel m;
     private ReportView v;
 
@@ -26,7 +24,7 @@ public class ReportController implements Comparable{
         return v;
     }
 
-    @Override
+    /*@Override
     public int compareTo(Object o) throws IllegalArgumentException{
         if(!(o instanceof ReportController)) throw new IllegalArgumentException("Argument not date");
         if(m.getDate().isBefore(((ReportController) o).getM().getDate())) {
@@ -36,5 +34,5 @@ public class ReportController implements Comparable{
         }else {
             return 0;
         }
-    }
+    }*/
 }

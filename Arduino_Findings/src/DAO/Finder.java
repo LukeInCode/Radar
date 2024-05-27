@@ -68,15 +68,18 @@ public class  Finder implements Actions {
      */
     @Override
     public ArrayList<ReportController> getAllreports() throws RuntimeException{
-        final String query = "SELECT * FROM infos";
+        final String query = "SELECT * FROM infos ORDER BY ID DESC";
+        final int MAX_REPORTS = 7;
+        int cont = 0;
         ArrayList<ReportController> list = new ArrayList<>();
         try(Connection c = DriverManager.getConnection(URL,USERNAME,PSW)){
             Statement t = c.createStatement();
             ResultSet rs = t.executeQuery(query);
             try {
-                while (rs.next()) {
+                while (rs.next() && cont < MAX_REPORTS) {
                     int dist = rs.getInt("REVELED");
                     LocalDate date = LocalDate.parse(rs.getString("Date"));
+                    cont++;
                     list.add(new ReportController(new ReportModel(dist,date),new ReportView(parent)));
                 }
                 return list;

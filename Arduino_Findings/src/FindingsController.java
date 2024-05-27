@@ -5,8 +5,6 @@ import processing.core.PApplet;
 import Report.*;
 import java.time.format.DateTimeFormatter;
 import java.time.*;
-import java.util.Collections;
-
 /**
  * Controller class from the MVC program pattern
  */
@@ -16,7 +14,7 @@ public class FindingsController extends PApplet {
     private FindingsView v;
     private Finder finder;
 
-    boolean ready = false;
+    private boolean ready = false;
 
     private int previousMillis;
 
@@ -48,20 +46,26 @@ public class FindingsController extends PApplet {
             String today = LocalDate.now().format(f);
             previousMillis = millis();
             ReportController atcualReport = new ReportController(new ReportModel(m.getSerial().read(),LocalDate.parse(today,f)),new ReportView(this));
-            m.getReports().add(atcualReport);
             finder.addReport(atcualReport.getM().getReveled(),atcualReport.getM().getDate().toString());
         }
         m.reports = finder.getAllreports();
-        Collections.sort(m.reports);
         v.loop(m);
     }
 
+    /**
+     * Exit button callback
+     * @param e button event
+     */
     public void exit(ControlEvent e) {
         if(ready && e.isFrom(v.getButton(1))) {
             System.exit(0);
         }
     }
 
+    /**
+     * Report view button callback
+     * @param e button event
+     */
     public void list(ControlEvent e) {
         if(ready && e.isFrom(v.getButton(0))) {
             v.setScreen(0,false);
@@ -69,6 +73,10 @@ public class FindingsController extends PApplet {
         }
     }
 
+    /**
+     * Back home button callback
+     * @param e button event
+     */
     public void home(ControlEvent e) {
         if(ready && e.isFrom(v.getHome())) {
             v.setScreen(0,true);
@@ -77,6 +85,10 @@ public class FindingsController extends PApplet {
         }
     }
 
+    /**
+     * Main method
+     * @param passedArgs args
+     */
     public static void main(String[] passedArgs) {
         String[] appletArgs = new String[] { "FindingsController" };
         if (passedArgs != null) {

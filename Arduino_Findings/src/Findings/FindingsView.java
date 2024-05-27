@@ -78,28 +78,55 @@ public class FindingsView {
         }
     }
 
+    /**
+     * Method to show all buttons
+     */
     public void showAllButtons() {
         for(Button b : btns) b.show();
     }
 
+    /**
+     * Method to hide all buttons
+     */
     public void hideAllButtons() {
         for(Button b : btns) b.hide();
     }
 
+    /**
+     * Method to get a single button from the array
+     * @param index - index of the array
+     * @return - the button
+     * @throws IndexOutOfBoundsException - if the index is not valid
+     */
     public Button getButton(int index) throws IndexOutOfBoundsException{
         if(index >= 0 && index < btns.length) return btns[index];
         else throw new IndexOutOfBoundsException("Index out of the button array bound");
     }
 
+    /**
+     * Method to set a screen
+     * @param index - index to set
+     * @param value - value to set
+     * @throws IndexOutOfBoundsException - if the index is out of the array bound
+     */
     public void setScreen(int index, boolean value) throws IndexOutOfBoundsException{
         if(index >= 0 && index < btns.length) screens[index] = value;
         else throw new IndexOutOfBoundsException("Index out of the screen array bound");
     }
 
+    /**
+     * Method to get a single screen value
+     * @param index - index to get
+     * @return the value of the screen
+     * @throws IndexOutOfBoundsException if the index is out of the array bound
+     */
     public boolean getScreen(int index) throws IndexOutOfBoundsException{
         if(index >= 0 && index < screens.length) return screens[index];
         else throw new IndexOutOfBoundsException("Index out of the screen array bound");
     }
 
+    /**
+     * @return the "home" button
+     */
     public Button getHome() {return home;}
 }
