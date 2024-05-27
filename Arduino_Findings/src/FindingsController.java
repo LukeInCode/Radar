@@ -18,6 +18,9 @@ public class FindingsController extends PApplet {
 
     private int previousMillis;
 
+    private int status = -1;
+    private int message;
+
     /**
      * Method for initializing variables
      */
@@ -41,12 +44,14 @@ public class FindingsController extends PApplet {
      * Main method
      */
     public void draw() {
-        if(m.getSerial().read() != -1 && millis() - previousMillis > 3000) {
+        if(status != -1 && millis() - previousMillis > 3000) {
+            System.out.println("dentro");
             DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String today = LocalDate.now().format(f);
             previousMillis = millis();
-            ReportController atcualReport = new ReportController(new ReportModel(m.getSerial().read(),LocalDate.parse(today,f)),new ReportView(this));
+            ReportController atcualReport = new ReportController(new ReportModel(message,LocalDate.parse(today,f)),new ReportView(this));
             finder.addReport(atcualReport.getM().getReveled(),atcualReport.getM().getDate().toString());
+            status = -1;
         }
         m.reports = finder.getAllreports();
         v.loop(m);
@@ -82,6 +87,17 @@ public class FindingsController extends PApplet {
             v.setScreen(0,true);
             v.setScreen(1,false);
             v.getHome().hide();
+        }
+    }
+
+    public void webSocketServerEvent(String msg){
+        try {
+            message = Integer.parseInt(msg);
+            System.out.println(message);
+            if(message == -1) status = -1;
+            else status = 0;
+        }catch (Exception e) {
+            status = -1;
         }
     }
 

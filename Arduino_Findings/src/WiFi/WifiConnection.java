@@ -37,6 +37,6 @@ public class WifiConnection {
      * Metodo per la ricezione
      */
     public void webSocketServerEvent(String msg){
-        System.out.println(msg);
+        System.out.println(Integer.parseInt(msg));
     }
 }

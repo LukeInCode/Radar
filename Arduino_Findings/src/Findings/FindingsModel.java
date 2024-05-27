@@ -1,8 +1,10 @@
 package Findings;
 import Report.ReportController;
+import WiFi.WifiConnection;
 import processing.core.PApplet;
 import processing.serial.Serial;
 import java.util.ArrayList;
+import WiFi.*;
 
 
 /**
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  */
 public class FindingsModel {
     public ArrayList<ReportController> reports;
-    private Serial s;
+    private WifiConnection s;
 
 
     /**
@@ -20,7 +22,8 @@ public class FindingsModel {
      */
     public FindingsModel(PApplet p) throws NullPointerException{
         if(p != null) {
-            s = new Serial(p,Serial.list()[3],9600);
+            s = new WifiConnection(p);
+            //s = new Serial(p,Serial.list()[3],9600);
             reports = new ArrayList<>();
         }else throw new NullPointerException();
     }
@@ -44,7 +47,7 @@ public class FindingsModel {
     /**
      * @return the serial obj
      */
-    public Serial getSerial() {
+    public WifiConnection getSerial() {
         return s;
     }
 }
