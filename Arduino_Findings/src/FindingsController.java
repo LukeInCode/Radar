@@ -2,9 +2,9 @@ import DAO.Finder;
 import Findings.*;
 import controlP5.ControlEvent;
 import processing.core.PApplet;
-
-import java.time.LocalDate;
-
+import Report.*;
+import java.time.format.DateTimeFormatter;
+import java.time.*;
 /**
  * Controller class from the MVC program pattern
  */
@@ -12,19 +12,21 @@ public class FindingsController extends PApplet {
     //digital -> green // analog -> blue
     private FindingsModel m;
     private FindingsView v;
-    private Finder report;
+    private Finder finder;
 
-    boolean ready = false;
+    private boolean ready = false;
 
+    private int previousMillis;
 
     /**
      * Method for initializing variables
      */
     public void setup() {
-        report = new Finder();
+        finder = new Finder(this);
         m = new FindingsModel(this);
         v = new FindingsView(this);
         v.setScreen(0,true);
+        previousMillis = millis();
         ready = true;
     }
 
@@ -39,16 +41,31 @@ public class FindingsController extends PApplet {
      * Main method
      */
     public void draw() {
-        //System.out.println(m.s.read());
+        if(m.getSerial().read() != -1 && millis() - previousMillis > 3000) {
+            DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String today = LocalDate.now().format(f);
+            previousMillis = millis();
+            ReportController atcualReport = new ReportController(new ReportModel(m.getSerial().read(),LocalDate.parse(today,f)),new ReportView(this));
+            finder.addReport(atcualReport.getM().getReveled(),atcualReport.getM().getDate().toString());
+        }
+        m.reports = finder.getAllreports();
         v.loop(m);
     }
 
+    /**
+     * Exit button callback
+     * @param e button event
+     */
     public void exit(ControlEvent e) {
         if(ready && e.isFrom(v.getButton(1))) {
             System.exit(0);
         }
     }
 
+    /**
+     * Report view button callback
+     * @param e button event
+     */
     public void list(ControlEvent e) {
         if(ready && e.isFrom(v.getButton(0))) {
             v.setScreen(0,false);
@@ -56,6 +73,22 @@ public class FindingsController extends PApplet {
         }
     }
 
+    /**
+     * Back home button callback
+     * @param e button event
+     */
+    public void home(ControlEvent e) {
+        if(ready && e.isFrom(v.getHome())) {
+            v.setScreen(0,true);
+            v.setScreen(1,false);
+            v.getHome().hide();
+        }
+    }
+
+    /**
+     * Main method
+     * @param passedArgs args
+     */
     public static void main(String[] passedArgs) {
         String[] appletArgs = new String[] { "FindingsController" };
         if (passedArgs != null) {
