@@ -1,13 +1,11 @@
 import DAO.Finder;
 import Findings.*;
-import Report.ReportController;
-import Report.ReportModel;
-import Report.ReportView;
 import controlP5.ControlEvent;
 import processing.core.PApplet;
-import java.sql.ResultSet;
-import java.time.LocalDate;
+import Report.*;
 import java.time.format.DateTimeFormatter;
+import java.time.*;
+import java.util.Collections;
 
 /**
  * Controller class from the MVC program pattern
@@ -53,6 +51,8 @@ public class FindingsController extends PApplet {
             m.getReports().add(atcualReport);
             finder.addReport(atcualReport.getM().getReveled(),atcualReport.getM().getDate().toString());
         }
+        m.reports = finder.getAllreports();
+        Collections.sort(m.reports);
         v.loop(m);
     }
 

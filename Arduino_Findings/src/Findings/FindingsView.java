@@ -33,7 +33,7 @@ public class FindingsView {
 
             btns[0] = cp5.addButton("list").setValue(100).setSize(100,100).setPosition(parent.width/2-50,parent.height/2).setLabel("view").hide();
             btns[1] = cp5.addButton("exit").setValue(100).setSize(100,100).setPosition(parent.width/2-50,parent.height/2+200).setLabel("exit").hide();
-            home = cp5.addButton("home").setValue(100).setSize(100,100).setPosition(parent.width/2+parent.width/6,parent.height/3-parent.width/4).setLabel("Back").hide();
+            home = cp5.addButton("home").setValue(100).setSize(100,50).setPosition(parent.width/2+parent.width/6,parent.height/4-parent.width/5).setLabel("Back").hide();
             Arrays.fill(screens,false);
         }
         else {
@@ -49,7 +49,7 @@ public class FindingsView {
         parent.textMode(3);
         parent.fill(0);
         parent.textSize(40);
-        parent.text("Welcome to the radar!",parent.width/2-parent.width/4,parent.height/3);
+        parent.text("Welcome to the radar!",parent.width/2-parent.width/4,parent.height/4);
         showAllButtons();
     }
 
@@ -66,7 +66,7 @@ public class FindingsView {
             home.show();
             parent.textSize(40);
             parent.fill(0);
-            parent.text("Records",parent.width/2-parent.width/12,parent.height/6);
+            parent.text("Records",parent.width/2-parent.width/12,parent.height/3-parent.width/4);
             if(m.getReports().isEmpty()) parent.text("No data to found" , parent.width/2-parent.width/6,parent.height/3);
             else {
                 for(ReportController report : m.getReports()) {

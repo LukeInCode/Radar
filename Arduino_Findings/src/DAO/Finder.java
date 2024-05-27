@@ -75,7 +75,6 @@ public class  Finder implements Actions {
             ResultSet rs = t.executeQuery(query);
             try {
                 while (rs.next()) {
-                    System.out.println("a");
                     int dist = rs.getInt("REVELED");
                     LocalDate date = LocalDate.parse(rs.getString("Date"));
                     list.add(new ReportController(new ReportModel(dist,date),new ReportView(parent)));
