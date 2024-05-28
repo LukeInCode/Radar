@@ -8,6 +8,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class for the DAO design pattern.
+ */
 public class  Finder implements Actions {
 
     private final String URL = "jdbc:mysql://localhost/Obstacles";
@@ -16,6 +19,11 @@ public class  Finder implements Actions {
 
     private PApplet parent;
 
+    /**
+     * Constructor
+     * @param parent - PApplet obj
+     * @throws NullPointerException if parent is null
+     */
     public Finder(PApplet parent) throws NullPointerException{
         if(parent == null) {
             throw new NullPointerException("Data null");

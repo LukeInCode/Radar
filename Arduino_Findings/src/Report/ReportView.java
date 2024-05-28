@@ -1,7 +1,5 @@
 package Report;
-
 import processing.core.PApplet;
-
 import java.time.format.DateTimeFormatter;
 
 public class ReportView {

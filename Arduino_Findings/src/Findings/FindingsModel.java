@@ -2,10 +2,7 @@ package Findings;
 import Report.ReportController;
 import WiFi.WifiConnection;
 import processing.core.PApplet;
-import processing.serial.Serial;
 import java.util.ArrayList;
-import WiFi.*;
-
 
 /**
  * Model class from the MVC program pattern
@@ -23,7 +20,6 @@ public class FindingsModel {
     public FindingsModel(PApplet p) throws NullPointerException{
         if(p != null) {
             s = new WifiConnection(p);
-            //s = new Serial(p,Serial.list()[3],9600);
             reports = new ArrayList<>();
         }else throw new NullPointerException();
     }
@@ -45,9 +41,9 @@ public class FindingsModel {
     }
 
     /**
-     * @return the serial obj
+     * @return the WifiConnection obj
      */
-    public WifiConnection getSerial() {
+    public WifiConnection getWifi() {
         return s;
     }
 }

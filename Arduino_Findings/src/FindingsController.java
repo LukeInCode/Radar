@@ -9,15 +9,11 @@ import java.time.*;
  * Controller class from the MVC program pattern
  */
 public class FindingsController extends PApplet {
-    //digital -> green // analog -> blue
     private FindingsModel m;
     private FindingsView v;
     private Finder finder;
-
     private boolean ready = false;
-
     private int previousMillis;
-
     private int status = -1;
     private int message;
 
