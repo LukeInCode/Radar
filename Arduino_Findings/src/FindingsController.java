@@ -45,7 +45,6 @@ public class FindingsController extends PApplet {
      */
     public void draw() {
         if(status != -1 && millis() - previousMillis > 3000) {
-            System.out.println("dentro");
             DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String today = LocalDate.now().format(f);
             previousMillis = millis();
