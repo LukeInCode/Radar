@@ -47,16 +47,17 @@ public class  Finder implements Actions {
     /**
      * Method to get a report by its id
      * @param id - id of the report
-     * @return the ResultSet
+     * @return the ReportController object
      */
     @Override
-    public ResultSet getReportById(int id) {
+    public ReportController getReportById(int id) {
         final String query = "SELECT * infos WHERE id=?";
         try(Connection c = DriverManager.getConnection(URL,USERNAME,PSW)){
             PreparedStatement t = c.prepareStatement(query);
             t.setInt(1,id);
             ResultSet rs = t.executeQuery();
-            return rs;
+            ReportController result = new ReportController(new ReportModel(rs.getInt("REVELED"), LocalDate.parse(rs.getString("Date"))), new ReportView(parent));
+            return result;
         }catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
