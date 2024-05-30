@@ -85,6 +85,10 @@ public class FindingsController extends PApplet {
         }
     }
 
+    /**
+     * net callback
+     * @param msg message from socket
+     */
     public void webSocketServerEvent(String msg){
         try {
             message = Integer.parseInt(msg);
