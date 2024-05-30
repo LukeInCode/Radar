@@ -16,7 +16,7 @@ public class ReportView {
     public void view(ReportModel m) {
         parent.textSize(40);
         parent.fill(0);
-        String header = String.format("%12s %12s","DISTANCE","DATE");
+        String header = String.format("%-13s %-13s","DISTANCE (mm)","DATE");
         String date = m.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String body = String.format("%-12d %12s",m.getReveled(),date);
         parent.text(header,parent.width/4,parent.height/4);
