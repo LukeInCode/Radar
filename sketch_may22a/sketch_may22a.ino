@@ -6,7 +6,7 @@ Servo myServo; // Crea un oggetto servo per controllare il servo motore
 
 int pos = 0;    // Variabile per memorizzare la posizione del servo
 int increment = 1; // Variabile per controllare la direzione del movimento
-const int minutes = 30000;
+const int minutes = 3000;
 uint16_t range;
 int previousMillis;
 /////// WiFi Settings ///////
